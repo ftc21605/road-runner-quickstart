@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Grabber;
 
-@TeleOp(name = "New TeleOp", group = "Test")
+@TeleOp(name = "New TeleOp", group = "Wallace")
 //@Disabled
 public class NewTeleOP extends LinearOpMode {
 
