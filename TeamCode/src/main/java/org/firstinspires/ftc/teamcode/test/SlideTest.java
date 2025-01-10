@@ -6,19 +6,23 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.Slide;
 
-@TeleOp(name = "Test: Arm Test", group = "Test")
+@TeleOp(name = "Test: Slide Test", group = "Test")
 //@Disabled
-public class ArmTest extends LinearOpMode {
+public class SlideTest extends LinearOpMode {
 
     Arm arm = new Arm(this);
-	    double savepower = 0.;
+    Slide slide = new Slide(this);
+	    double savepowerarm = 0.;
+	    double savepowerslide = 0.;
    private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
 
 	arm.init();
+	slide.init();
         telemetry.addData(">", "Press Start to run." );
         telemetry.update();
         waitForStart();
@@ -26,25 +30,34 @@ public class ArmTest extends LinearOpMode {
 
         // Scan servo till stop pressed.
         while(opModeIsActive()){
-double power =  -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-if (Math.abs(power) > 0.05)
+double powerslide =  -gamepad1.right_stick_y;  // Note: pushing stick forward gives negative value
+double powerarm =  -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+if (Math.abs(powerarm) > 0.05)
     {
-	savepower = power;
+	savepowerarm = powerarm;
+    }
+if (Math.abs(powerslide) > 0.05)
+    {
+	savepowerslide = powerslide;
     }
 long armposition = arm.getCurrentPosition();
+long slideposition = slide.getCurrentPosition();
 if (armposition >= 1900)
 {
-    power = Math.min(power,0);
+    powerarm = Math.min(powerarm,0);
 }
 if (armposition <= 60)
 {
-    power = Math.max(power,0);
+    powerarm = Math.max(powerarm,0);
 }
-    
-arm.move(power);
-	    // Display the current value
+arm.move(powerarm);
+slide.move(powerslide);
+
+// Display the current value
 telemetry.addData("Arm Position", "%10d", armposition);
-telemetry.addData("last power", "%5.2f", savepower);
+telemetry.addData("last powerarm", "%5.2f", savepowerarm);
+telemetry.addData("Slide Position", "%10d", slideposition);
+telemetry.addData("last powerslide", "%5.2f", savepowerslide);
             telemetry.update();
 
             // Set the servo to the new position and pause;

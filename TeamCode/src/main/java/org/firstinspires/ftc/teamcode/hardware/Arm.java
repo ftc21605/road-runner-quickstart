@@ -26,13 +26,12 @@ public class Arm {
      */
     public void init()    {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        Arm = myOpMode.hardwareMap.get(DcMotor.class, "arm0");
+        Arm = myOpMode.hardwareMap.get(DcMotor.class, "arm");
 
         Arm.setDirection(DcMotor.Direction.FORWARD);
         Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        myOpMode.telemetry.addData(">", "Arm Train Initialized");
-        myOpMode.telemetry.update();
+	//	Arm.setMode(DcMotor.STOP_AND_RESET_ENCODER);
+        myOpMode.telemetry.addData(">", "Arm Initialized");
     }
 
     /**
@@ -41,10 +40,11 @@ public class Arm {
      * Then sends these power levels to the motors.
      */
     public void move(double power) {
-        // Combine drive and turn for blended motion.
-            // Send calculated power to wheels
             Arm.setPower(power);
     }
-
+    public long getCurrentPosition() {
+	return Arm.getCurrentPosition();
+    }
+    
 
 }
