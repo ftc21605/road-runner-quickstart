@@ -31,6 +31,9 @@ public class Arm {
         Arm.setDirection(DcMotor.Direction.FORWARD);
         Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 	//	Arm.setMode(DcMotor.STOP_AND_RESET_ENCODER);
+
+         Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         myOpMode.telemetry.addData(">", "Arm Initialized");
     }
 
