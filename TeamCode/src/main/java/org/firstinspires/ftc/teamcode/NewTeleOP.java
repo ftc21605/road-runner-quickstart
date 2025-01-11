@@ -24,7 +24,8 @@ public class NewTeleOP extends LinearOpMode {
     boolean bpushed = false;
     double savepowerarm = 0.;
     double savepowerslide = 0.;
-
+    double maxslidepos = 2900;
+    double maxarmpos = 1900;
     private final ElapsedTime runtime = new ElapsedTime();
 
     @Override
@@ -78,14 +79,14 @@ public class NewTeleOP extends LinearOpMode {
             }
             long armposition = arm.getCurrentPosition();
             long slideposition = slide.getCurrentPosition();
-            if (armposition >= 1900) {
+            if (armposition >= maxarmpos) {
                 powerarm = Math.min(powerarm, 0);
             }
             if (armposition <= 60) {
                 powerarm = Math.max(powerarm, 0);
             }
             arm.move(powerarm);
-            if (slideposition >= 2000) {
+            if (slideposition >= maxslidepos) {
                 powerslide = Math.min(powerslide, 0);
             }
             if (slideposition <= 60) {
