@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.hardware.Rotator;
 public class RotatorTest extends LinearOpMode {
 
     Rotator rotator = new Rotator(this);
-    double currpos = 0.5;
     boolean apushed = false;
     boolean bpushed = false;
 
