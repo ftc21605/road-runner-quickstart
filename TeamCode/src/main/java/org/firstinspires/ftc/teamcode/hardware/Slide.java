@@ -28,8 +28,10 @@ public class Slide {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         Slide = myOpMode.hardwareMap.get(DcMotor.class, "slide");
 
-        Slide.setDirection(DcMotor.Direction.FORWARD);
+        Slide.setDirection(DcMotor.Direction.REVERSE);
         Slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+         Slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         myOpMode.telemetry.addData(">", "Slide Initialized");
     }

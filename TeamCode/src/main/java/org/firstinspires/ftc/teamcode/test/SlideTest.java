@@ -51,7 +51,16 @@ if (armposition <= 60)
     powerarm = Math.max(powerarm,0);
 }
 arm.move(powerarm);
-slide.move(powerslide);
+if (slideposition >= 2250)
+    {
+	powerslide = Math.min(powerslide,0);
+    }
+if (slideposition <= 60)
+    {
+	powerslide = Math.max(powerslide,0);
+    }
+	
+	slide.move(powerslide);
 
 // Display the current value
 telemetry.addData("Arm Position", "%10d", armposition);

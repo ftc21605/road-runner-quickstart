@@ -12,9 +12,8 @@ public class Grabber {
 
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
     private Servo GrabServo = null;
-    private Servo TurnServo = null;
-    static final double MAX_POS     =  1.0;     // Maximum rotational position
-    static final double MIN_POS     =  0.0;     // Minimum rotational position
+    static final double MAX_POS     =  0.86;     // Maximum rotational position
+    static final double MIN_POS     =  0.11;     // Minimum rotational position
     // Define a constructor that allows the OpMode to pass a reference to itself.
     public Grabber(LinearOpMode opmode) {
         myOpMode = opmode;
@@ -28,10 +27,8 @@ public class Grabber {
      */
     public void init()    {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-GrabServo = myOpMode.hardwareMap.get(Servo.class, "grabber1");
-TurnServo = myOpMode.hardwareMap.get(Servo.class, "rotator0");
-        myOpMode.telemetry.addData(">", "Grabber Servos Initialized");
-        myOpMode.telemetry.update();
+GrabServo = myOpMode.hardwareMap.get(Servo.class, "grabber");
+        myOpMode.telemetry.addData(">", "Grabber Servo Initialized");
     }
 
     /**
@@ -49,16 +46,5 @@ TurnServo = myOpMode.hardwareMap.get(Servo.class, "rotator0");
             // Send calculated power to wheels
 	GrabServo.setPosition(MIN_POS);
     }
-    public void rotate_left() {
-        // Combine drive and turn for blended motion.
-            // Send calculated power to wheels
-	TurnServo.setPosition(MAX_POS);
-    }
-    public void rotate_right() {
-        // Combine drive and turn for blended motion.
-            // Send calculated power to wheels
-	TurnServo.setPosition(MIN_POS);
-    }
-
 
 }
