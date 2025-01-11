@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,13 +6,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Grabber {
 
+    static final double MAX_POS = 0.86;     // Maximum rotational position
+    static final double MIN_POS = 0.11;     // Minimum rotational position
     /* Declare OpMode members. */
-    private LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
-
+    private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
     private Servo GrabServo = null;
-    static final double MAX_POS     =  0.86;     // Maximum rotational position
-    static final double MIN_POS     =  0.11;     // Minimum rotational position
+
     // Define a constructor that allows the OpMode to pass a reference to itself.
     public Grabber(LinearOpMode opmode) {
         myOpMode = opmode;
@@ -25,9 +24,9 @@ public class Grabber {
      * <p>
      * All of the hardware devices are accessed via the hardware map, and initialized.
      */
-    public void init()    {
+    public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-GrabServo = myOpMode.hardwareMap.get(Servo.class, "grabber");
+        GrabServo = myOpMode.hardwareMap.get(Servo.class, "grabber");
         myOpMode.telemetry.addData(">", "Grabber Servo Initialized");
     }
 
@@ -38,13 +37,14 @@ GrabServo = myOpMode.hardwareMap.get(Servo.class, "grabber");
      */
     public void grab() {
         // Combine drive and turn for blended motion.
-            // Send calculated power to wheels
-	GrabServo.setPosition(MAX_POS);
+        // Send calculated power to wheels
+        GrabServo.setPosition(MAX_POS);
     }
+
     public void release() {
         // Combine drive and turn for blended motion.
-            // Send calculated power to wheels
-	GrabServo.setPosition(MIN_POS);
+        // Send calculated power to wheels
+        GrabServo.setPosition(MIN_POS);
     }
 
 }

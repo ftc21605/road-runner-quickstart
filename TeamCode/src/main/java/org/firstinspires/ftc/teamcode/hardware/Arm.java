@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Arm {
 
     /* Declare OpMode members. */
-    private LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
+    private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
 
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
     private DcMotor Arm = null;
@@ -24,15 +23,15 @@ public class Arm {
      * <p>
      * All of the hardware devices are accessed via the hardware map, and initialized.
      */
-    public void init()    {
+    public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         Arm = myOpMode.hardwareMap.get(DcMotor.class, "arm");
 
         Arm.setDirection(DcMotor.Direction.FORWARD);
         Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-	//	Arm.setMode(DcMotor.STOP_AND_RESET_ENCODER);
+        //	Arm.setMode(DcMotor.STOP_AND_RESET_ENCODER);
 
-         Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         myOpMode.telemetry.addData(">", "Arm Initialized");
     }
@@ -43,11 +42,12 @@ public class Arm {
      * Then sends these power levels to the motors.
      */
     public void move(double power) {
-            Arm.setPower(power);
+        Arm.setPower(power);
     }
+
     public long getCurrentPosition() {
-	return Arm.getCurrentPosition();
+        return Arm.getCurrentPosition();
     }
-    
+
 
 }
