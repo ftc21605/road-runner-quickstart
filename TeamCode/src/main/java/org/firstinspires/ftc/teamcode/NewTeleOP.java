@@ -25,7 +25,7 @@ public class NewTeleOP extends LinearOpMode {
     double savepowerarm = 0.;
     double savepowerslide = 0.;
     double maxslidepos = 2900;
-    double maxarmpos = 1900;
+    double maxarmpos = 1900; // 1550 for dropping things
     private final ElapsedTime runtime = new ElapsedTime();
 
     @Override
