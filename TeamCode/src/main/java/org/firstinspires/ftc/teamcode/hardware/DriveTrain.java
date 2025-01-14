@@ -77,6 +77,14 @@ public class DriveTrain {
         // Send calculated power to wheels
         setDrivePower(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
     }
+    public void driveRobotSlow(double axial, double lateral, double yaw) {
+        double leftFrontPower = axial + lateral + yaw;
+        double rightFrontPower = axial - lateral - yaw;
+        double leftBackPower = axial - lateral + yaw;
+        double rightBackPower = axial + lateral - yaw;
+        // Send calculated power to wheels
+        setDrivePower(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
+    }
 
     public void setDrivePower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower) {
         leftFrontDrive.setPower(leftFrontPower);

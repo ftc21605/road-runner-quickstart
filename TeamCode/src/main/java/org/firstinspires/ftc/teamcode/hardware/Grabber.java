@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Grabber {
 
-    static final double MAX_POS = 0.82;     // Maximum rotational position
-    static final double MIN_POS = 0.15;     // Minimum rotational position
+    static final double MAX_POS = 0.7;     // Maximum rotational position
+    static final double MIN_POS = 0.2;     // Minimum rotational position
     /* Declare OpMode members. */
     private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)

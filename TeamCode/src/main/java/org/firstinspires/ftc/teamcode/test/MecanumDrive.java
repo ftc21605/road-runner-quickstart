@@ -29,7 +29,11 @@ public class MecanumDrive extends LinearOpMode {
             double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double lateral = gamepad1.left_stick_x;
             double yaw = gamepad1.right_stick_x * 0.6;
+	                telemetry.addData("axial:", "%5.2f", axial);
+	                telemetry.addData("lateral:", "%5.2f", lateral);
+	                telemetry.addData("yaw:", "%5.2f", yaw);
             drive.driveRobot(axial, lateral, yaw);
+        telemetry.update();
         }
     }
 }

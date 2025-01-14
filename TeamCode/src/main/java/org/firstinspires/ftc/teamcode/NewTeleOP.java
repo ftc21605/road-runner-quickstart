@@ -24,8 +24,11 @@ public class NewTeleOP extends LinearOpMode {
     boolean bpushed = false;
     double savepowerarm = 0.;
     double savepowerslide = 0.;
-    double maxslidepos = 2900;
+    double maxslidepos = 2980;
     double maxarmpos = 1900; // 1550 for dropping things
+    double slowaxial = 0.2;
+    double slowlateral = 0.2;
+    double slowyaw = 0.15;
     private final ElapsedTime runtime = new ElapsedTime();
 
     @Override
@@ -68,7 +71,43 @@ public class NewTeleOP extends LinearOpMode {
             double lateral = gamepad1.left_stick_x;
             double yaw = gamepad1.right_stick_x * 0.6;
             drive.driveRobot(axial, lateral, yaw);
-
+	    boolean slowbot = false;
+	    if (gamepad2.dpad_right)
+		{
+		    lateral = slowlateral;  // Note: pushing stick forward gives negative value
+           telemetry.addData("Status", "Dpad right pushed ");
+	    slowbot = true;
+		}
+	    if (gamepad2.dpad_left)
+		{
+		    lateral = -slowlateral;  // Note: pushing stick forward gives negative value
+	    slowbot = true;
+		}
+	    if (gamepad2.dpad_up)
+		{
+		    axial = slowaxial;  // Note: pushing stick forward gives negative value
+	    slowbot = true;
+		}
+	    if (gamepad2.dpad_down)
+		{
+		    axial = -slowaxial;  // Note: pushing stick forward gives negative value
+           telemetry.addData("Status", "Dpad down pushed ");
+	    slowbot = true;
+		}
+	    if (gamepad2.left_bumper)
+		{
+		    yaw = -slowyaw;  // Note: pushing stick forward gives negative value
+	    slowbot = true;
+		}
+	    if (gamepad2.right_bumper)
+		{
+		    yaw = slowyaw;  // Note: pushing stick forward gives negative value
+	    slowbot = true;
+		}
+	    if (slowbot)
+		{
+            drive.driveRobotSlow(axial, lateral, yaw);
+		}		    
             double powerslide = -gamepad2.right_stick_y;  // Note: pushing stick forward gives negative value
             double powerarm = -gamepad2.left_stick_y;  // Note: pushing stick forward gives negative value
             if (Math.abs(powerarm) > 0.05) {
