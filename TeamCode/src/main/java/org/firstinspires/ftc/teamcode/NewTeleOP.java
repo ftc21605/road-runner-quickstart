@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.hardware.Slide;
 //@Disabled
 public class NewTeleOP extends LinearOpMode {
 
+    private final ElapsedTime runtime = new ElapsedTime();
     //    Grabber grabber = new Grabber(this);
     DriveTrain drive = new DriveTrain(this);
     Arm arm = new Arm(this);
@@ -27,9 +28,8 @@ public class NewTeleOP extends LinearOpMode {
     double maxslidepos = 2980;
     double maxarmpos = 1900; // 1550 for dropping things
     double slowaxial = 0.2;
-    double slowlateral = 0.2;
+    double slowlateral = 0.15;
     double slowyaw = 0.15;
-    private final ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
@@ -71,43 +71,36 @@ public class NewTeleOP extends LinearOpMode {
             double lateral = gamepad1.left_stick_x;
             double yaw = gamepad1.right_stick_x * 0.6;
             drive.driveRobot(axial, lateral, yaw);
-	    boolean slowbot = false;
-	    if (gamepad2.dpad_right)
-		{
-		    lateral = slowlateral;  // Note: pushing stick forward gives negative value
-           telemetry.addData("Status", "Dpad right pushed ");
-	    slowbot = true;
-		}
-	    if (gamepad2.dpad_left)
-		{
-		    lateral = -slowlateral;  // Note: pushing stick forward gives negative value
-	    slowbot = true;
-		}
-	    if (gamepad2.dpad_up)
-		{
-		    axial = slowaxial;  // Note: pushing stick forward gives negative value
-	    slowbot = true;
-		}
-	    if (gamepad2.dpad_down)
-		{
-		    axial = -slowaxial;  // Note: pushing stick forward gives negative value
-           telemetry.addData("Status", "Dpad down pushed ");
-	    slowbot = true;
-		}
-	    if (gamepad2.left_bumper)
-		{
-		    yaw = -slowyaw;  // Note: pushing stick forward gives negative value
-	    slowbot = true;
-		}
-	    if (gamepad2.right_bumper)
-		{
-		    yaw = slowyaw;  // Note: pushing stick forward gives negative value
-	    slowbot = true;
-		}
-	    if (slowbot)
-		{
-            drive.driveRobotSlow(axial, lateral, yaw);
-		}		    
+            boolean slowbot = false;
+            if (gamepad2.dpad_right) {
+                lateral = slowlateral;  // Note: pushing stick forward gives negative value
+                telemetry.addData("Status", "Dpad right pushed ");
+                slowbot = true;
+            }
+            if (gamepad2.dpad_left) {
+                lateral = -slowlateral;  // Note: pushing stick forward gives negative value
+                slowbot = true;
+            }
+            if (gamepad2.dpad_up) {
+                axial = slowaxial;  // Note: pushing stick forward gives negative value
+                slowbot = true;
+            }
+            if (gamepad2.dpad_down) {
+                axial = -slowaxial;  // Note: pushing stick forward gives negative value
+                telemetry.addData("Status", "Dpad down pushed ");
+                slowbot = true;
+            }
+            if (gamepad2.left_bumper) {
+                yaw = -slowyaw;  // Note: pushing stick forward gives negative value
+                slowbot = true;
+            }
+            if (gamepad2.right_bumper) {
+                yaw = slowyaw;  // Note: pushing stick forward gives negative value
+                slowbot = true;
+            }
+            if (slowbot) {
+                drive.driveRobotSlow(axial, lateral, yaw);
+            }
             double powerslide = -gamepad2.right_stick_y;  // Note: pushing stick forward gives negative value
             double powerarm = -gamepad2.left_stick_y;  // Note: pushing stick forward gives negative value
             if (Math.abs(powerarm) > 0.05) {
@@ -131,10 +124,12 @@ public class NewTeleOP extends LinearOpMode {
             if (slideposition <= 60) {
                 powerslide = Math.max(powerslide, 0);
             }
-
+            if (gamepad2.right_trigger > 0) {
+                powerslide = -0.07;
+            }
             slide.move(powerslide);
 
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.addData(">", "Press X to grab.");
             telemetry.addData("currpos:", "%5.2f", rotator.currpos());
             telemetry.addData(">", "Press a to turn left.");
